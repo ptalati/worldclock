@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/src/styles.css" />
+    <title>World Clock</title>
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+  <body>
+    <div id="card" class="card">
+      <!-- Clock view -->
+      <section id="view-clock">
+        <header class="bar" data-tauri-drag-region>
+          <span class="mode" data-tauri-drag-region id="mode">Live</span>
+          <div class="actions">
+            <button id="btn-now" title="Back to now">Now</button>
+            <button id="btn-copy" title="Copy all times">Copy</button>
+            <button id="btn-settings" title="Settings" aria-label="Settings">⚙</button>
+            <button id="btn-compact" title="Compact mode" aria-label="Compact mode">▭</button>
+            <button id="btn-hide" title="Hide to tray" aria-label="Hide to tray">×</button>
+          </div>
+        </header>
+        <div id="rows"></div>
+        <div class="scrub">
+          <label for="scrub">Plan</label>
+          <input type="range" id="scrub" min="-48" max="96" step="1" value="0" />
+          <span id="offset">+0h</span>
+        </div>
+        <div class="legend">
+          <span><i class="sw w"></i>Working</span>
+          <span><i class="sw e"></i>Stretch</span>
+          <span id="axis-note"></span>
+          <span id="toast" class="toast"></span>
+        </div>
+      </section>
+
+      <!-- Settings view -->
+      <section id="view-settings" hidden>
+        <header class="bar" data-tauri-drag-region>
+          <span class="title" data-tauri-drag-region>Settings</span>
+          <div class="actions"><button id="btn-done" class="primary">Done</button></div>
+        </header>
+
+        <h3>Home</h3>
+        <div class="field-row">
+          <label>Name
+            <input id="home-city" maxlength="32" style="width: 120px" />
+          </label>
+          <div class="grow">
+            <div class="tzpick">
+              <input id="home-search" placeholder="Search a city or time zone" autocomplete="off" />
+              <ul class="tz-results" id="home-results"></ul>
+            </div>
+            <div class="hint" id="home-current"></div>
+          </div>
+          <label class="mini-field">Works
+            <select id="home-start"></select>–<select id="home-end"></select>
+          </label>
+        </div>
+
+        <h3>Clocks <span class="count" id="clock-count"></span></h3>
+        <div id="clock-list" class="clock-list"></div>
+        <div class="tzpick">
+          <input id="add-search" placeholder="Add a clock: Perth, London, America/Chicago" autocomplete="off" />
+          <ul class="tz-results" id="add-results"></ul>
+        </div>
+
+        <h3>Display</h3>
+        <div class="field-row">
+          <label>Time format
+            <select id="opt-format"><option value="24">24-hour</option><option value="12">12-hour</option></select>
+          </label>
+          <label>Theme
+            <select id="opt-theme"><option value="system">System</option><option value="light">Light</option><option value="dark">Dark</option></select>
+          </label>
+          <label>Background opacity
+            <span><input type="range" id="opt-opacity" min="30" max="100" step="5" /><b id="opt-opacity-val"></b></span>
+          </label>
+          <label>New clock hours
+            <span><select id="opt-dstart"></select>–<select id="opt-dend"></select></span>
+          </label>
+        </div>
+
+        <h3>Behaviour</h3>
+        <label class="check"><input type="checkbox" id="opt-top" /> Keep on top of other windows</label>
+        <label class="check"><input type="checkbox" id="opt-autostart" /> Launch at sign-in</label>
+      </section>
+    </div>
+
+    <div id="mini" class="mini" data-tauri-drag-region hidden></div>
+  </body>
+</html>
